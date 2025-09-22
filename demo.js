@@ -60,3 +60,24 @@ function mimicServerCall() {
     }, 300);
   });
 }
+//Finding like-glyph elements
+const articleHearts = document.querySelectorAll(".like-glyph");
+
+function likeCallback(e) {
+  const heart = e.target;
+  mimicServerCall()
+    .then(function(serverMessage){
+      // Toggle the heart symbol
+      heart.innerText = glyphStates[heart.innerText];
+      // Toggle the color
+      heart.style.color = colorStates[heart.style.color];
+    })
+    .catch(function(error) {
+      alert("Something went wrong!");
+    });
+}
+
+// event listeners
+for (const glyph of articleHearts) {
+  glyph.addEventListener("click", likeCallback);
+}
